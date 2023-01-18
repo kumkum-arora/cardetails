@@ -79,7 +79,7 @@
             @foreach ($cars as $row)
                 <div
                     class="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 ml-10 mt-12 mb-10 border-solid border-2 border-gray-200">
-                    <a href="fulldisplay/{{ $row->id }}">
+                    <a href="{{ url('fulldisplay') }}/{{ $row->id }}">
                         <img src="storage/{{ $row->image }}" alt="product image" style="height: 300px; weight:250px;"
                             class="p-4" />
                     </a>
