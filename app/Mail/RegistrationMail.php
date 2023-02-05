@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class sendmail extends Mailable
+class RegistrationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -34,7 +34,7 @@ class sendmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Registration successfull',
+            subject: 'Registration Successfull',
         );
     }
 

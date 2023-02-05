@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +19,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 // Routes for registration
-Route::get('/register', 'App\Http\Controllers\IController@register');
-Route::post('register-submit', 'App\Http\Controllers\IController@register_submit');
+Route::get('registration', [DisplayController::class, 'registration']);
+Route::post('register-submit', [UsersController::class, 'register_submit']);
 
 // display login page
-Route::get('login', 'App\Http\Controllers\IController@login');
-Route::post('login-submit', 'App\Http\Controllers\IController@login_account');
-Route::get('logout', 'App\Http\Controllers\IController@account_logout');
+Route::get('login',[DisplayController::class, 'login_Page']);
+Route::post('login-submit',[UsersController::class, 'login_account']);
+Route::get('logout',[UsersController::class, 'account_logout'] );
 
 // for index page
 Route::get('alldisplay', 'App\Http\Controllers\IController@alldisplay');

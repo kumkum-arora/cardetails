@@ -8,73 +8,11 @@ use App\Models\car;
 use App\Models\review;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
-use App\Events\sendregistermail;
-use Illuminate\Support\Facades\Event;
+
+use Illuminate\Support\Facades\Auth;
 
 class IController extends Controller
 {
-    // function for displaying register page
-    public function register()
-    {
-        return view('register');
-    }
-
-    // function for displaying Login page
-    public function login()
-    {
-        return view('login');
-    }
-
-    // function for submit register details in database
-    public function register_submit(Request $request)
-    {
-
-        $validate = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users,email',
-            'fullname' => 'required|min:5',
-            'username' => ['required', 'string', 'max:255', 'unique:users', 'alpha_dash'],
-            'password' => 'required',
-        ]);
-        if ($validate->fails()) {
-            return back()->withErrors($validate->errors())->withInput();
-        }
-        $add = new User;
-        if ($request->isMethod('post')) {
-            $add->email = $request->get('email');
-            $add->fullname = $request->get('fullname');
-            $add->username = $request->get('username');
-            $add->password = $request->get('password');
-            $add->save();
-        }
-        if (!is_null($add)) {
-            Event::dispatch(new sendregistermail($add)); //Event dispatch here
-            return redirect("login");
-        }
-    }
-
-    // function for Login account
-    public function login_account(Request $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        if ($validate->fails()) {
-            return back()->withErrors($validate->errors())->withInput();
-        }
-
-        $username = $request->get('email');
-        $password = $request->get('password');
-        $match = User::select('*')->where('email', $username)->where('password', $password)
-            ->first();
-        if ($match) {
-            $request->Session()->put('user', $match->id);
-            $request->Session()->put('uname', $match->fullname);
-            // echo session('user');
-            return redirect("alldisplay");
-        }
-    }
 
     // function for display index page
     public function alldisplay()
@@ -82,14 +20,6 @@ class IController extends Controller
         $cars = car::all();
         return view('alldisplay', compact('cars'));
     }
-
-    // function for logout account
-    public function account_logout()
-    {
-        Session()->flush('user');
-        return redirect('login');
-    }
-
     // email verification
     public function verifyemail(Request $request, $id)
     {
