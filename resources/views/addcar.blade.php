@@ -38,14 +38,14 @@
                 @csrf
                 <div class="mb-5">
                     <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
-                        car name
+                        Car Name
                     </label>
                     <input type="text" name="carname" id="name" placeholder="Full Name"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="mb-5">
                     <label for="text" class="mb-3 block text-base font-medium text-[#07074D]">
-                        brand
+                        Brand
                     </label>
                     <input type="text" name="brand" id="email" placeholder="brand"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
@@ -94,7 +94,7 @@
                 </div>
                 <div class="mb-5">
                     <label for="subject" class="mb-3 block text-base font-medium text-[#07074D]">
-                        color
+                        Color
                     </label>
                     <input type="text" name="color" id="subject" placeholder="Enter your subject"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
@@ -108,14 +108,14 @@
                 </div>
                 <div class="mb-5">
                     <label for="subject" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Upload image
+                        Upload Image
                     </label>
                     <input type="file" name="image" id="subject" placeholder="Enter your subject"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="mb-5">
                     <label for="subject" class="mb-3 block text-base font-medium text-[#07074D]">
-                        release Date
+                        Release Date
                     </label>
                     <input type="date" name="date" id="subject" placeholder="date"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />

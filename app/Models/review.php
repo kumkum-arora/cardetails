@@ -14,8 +14,8 @@ class review extends Model
 
     protected $fillable = [
         'review',
-        'cars_id',
         'users_id',
+        'cars_id',
         'created_at',
         'updated_at',
     ];

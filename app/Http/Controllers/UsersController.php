@@ -8,20 +8,14 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Events\SendRegisterMail;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 
 class UsersController extends Controller
-{
-    public function register_Submit(Request $request)
+{    
+    //for  add user details into the database and call event for sending mail to the user for account registered successfully
+    public function register_Submit(RegisterRequest $request)
     {
-        $validate = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users,email',
-            'username' => ['required', 'string', 'max:255', 'unique:users', 'alpha_dash'],
-            'password' => 'required',
-        ]);
-        if ($validate->fails()) {
-            return back()->withErrors($validate->errors())->withInput();
-        }
-
         $userdetails =  User::create([
             'email' => $request->email,
             'username' => $request->username,
@@ -29,21 +23,14 @@ class UsersController extends Controller
         ]);
 
         if (!is_null($userdetails)) {
-            event(new SendRegisterMail($userdetails)); //Event dispatch here
+            event(new SendRegisterMail($userdetails)); 
             return redirect("login");
         }
     }
-
-    public function login_Account(Request $request)
+   
+    // Login account using auth
+    public function login_Account(LoginRequest $request)
     {
-        $validate = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        if ($validate->fails()) {
-            return back()->withErrors($validate->errors())->withInput();
-        }
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             return redirect('index');
@@ -51,13 +38,15 @@ class UsersController extends Controller
             return redirect('login')->withErrors('invalid details');
         }
     }
-
+   
+    // for logout account
     public function account_Logout()
     {
         auth::logout();
         return redirect('login');
     }
-
+   
+    // for verifying email
     public function verifyEmail(Request $request, $id)
     {
         $verify = User::where('id', $id);

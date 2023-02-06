@@ -40,10 +40,10 @@
 </head>
 
 <body>
-    {{--  include header here  --}}
+    <!-- --  include header here  -->
     @include('common/header')
 
-    {{--  showing slider   --}}
+    <!----  showing slider  ---->
     <div class="slider">
         <div class="center-slider">
             <div class="main">
@@ -80,7 +80,7 @@
                 <div
                     class="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 ml-10 mt-12 mb-10 border-solid border-2 border-gray-200">
                     <a href="{{ url('fulldisplay') }}/{{ $row->id }}">
-                        <img src="storage/{{ $row->image }}" alt="product image" style="height: 300px; weight:250px;"
+                        <img src="storage/{{ $row->image }}" alt="product image" style="height: 300px; width:375px;"
                             class="p-4" />
                     </a>
                     <div class="px-5 pb-5">
