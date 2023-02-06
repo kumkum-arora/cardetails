@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class sendregistermail
+class SendRegisterMail
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,7 +20,7 @@ class sendregistermail
      * @return void
      */
     public $user;
-
+    
     public function __construct($user)
     {
         $this->user = $user;

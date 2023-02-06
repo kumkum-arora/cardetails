@@ -3,11 +3,10 @@
 namespace App\Listeners;
 
 use App\Events\SendRegisterMail;
-use App\Mail\RegistrationMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Mail\RegistrationMail;
 use Illuminate\Support\Facades\Mail;
-
 
 class HandleRegisterEmails
 {
@@ -30,7 +29,6 @@ class HandleRegisterEmails
     public function handle(SendRegisterMail $event)
     {
         $userdata = $event->user;
-        dd($userdata);
         $email = new RegistrationMail($userdata);
         Mail::to($userdata['email'])->send($email);
     }

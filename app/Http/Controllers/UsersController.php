@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
-use App\Events\SendRegisterMail;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Events\SendRegisterMail;
 
 class UsersController extends Controller
 {
@@ -27,11 +28,11 @@ class UsersController extends Controller
         $userdetails =  User::create([
             'email' => $request->email,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
         ]);
 
         if (!is_null($userdetails)) {
-            Event::dispatch(new SendRegisterMail($userdetails)); //Event dispatch here
+            event(new SendRegisterMail($userdetails)); //Event dispatch here
             return redirect("login");
         }
     }
