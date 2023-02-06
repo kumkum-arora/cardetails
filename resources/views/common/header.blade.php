@@ -18,10 +18,10 @@
           </div>
           <div class="lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow">
               <div class="lg:flex lg:items-stretch lg:justify-end ml-auto">
-                  @if (session()->has('user'))
+                  @if (Auth::user()))
                       <a
                           class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Hii
-                          {{ session('uname') }}</a>
+                          {{Auth::user()->username}}</a>
                       <a href="{{ url('logout') }}"
                           class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">logout</a>
                   @else
@@ -51,7 +51,7 @@
                   width="150px" class="text-3xl font-bold font-heading" />
               <!-- Nav Links -->
               <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                  <li><a class="hover:text-gray-200" href="{{ url('alldisplay') }}">Home</a></li>
+                  <li><a class="hover:text-gray-200" href="{{ url('index') }}">Home</a></li>
                   <li><a class="hover:text-gray-200" href="{{ url('addcar') }}">Add
                           Cars</a></li>
                   <li><a class="hover:text-gray-200" href="#">New Cars</a></li>

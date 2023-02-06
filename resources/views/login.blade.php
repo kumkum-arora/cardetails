@@ -36,7 +36,7 @@
         </div>
         <div class="sub-content">
             <div class="s-part">
-                Do not have an account? <a href="register">Sign up</a>
+                Do not have an account? <a href="registration">Sign up</a>
             </div>
         </div>
 </body>

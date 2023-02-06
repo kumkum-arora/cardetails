@@ -5,17 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
-use App\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Events\SendRegisterMail;
 
 class UsersController extends Controller
 {
-    public function register_submit(Request $request)
+    public function register_Submit(Request $request)
     {
-        // dd(Auth::id());
         $validate = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email',
             'username' => ['required', 'string', 'max:255', 'unique:users', 'alpha_dash'],
@@ -37,7 +34,7 @@ class UsersController extends Controller
         }
     }
 
-    public function login_account(Request $request)
+    public function login_Account(Request $request)
     {
         $validate = Validator::make($request->all(), [
             'email' => 'required',
@@ -49,15 +46,22 @@ class UsersController extends Controller
         }
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect('alldisplay');
+            return redirect('index');
         } else {
             return redirect('login')->withErrors('invalid details');
         }
     }
 
-    public function account_logout()
+    public function account_Logout()
     {
         auth::logout();
         return redirect('login');
+    }
+
+    public function verifyEmail(Request $request, $id)
+    {
+        $verify = User::where('id', $id);
+        $verify->update(['email_verified_at' => date('Y-m-d H:i:s')]);
+        return redirect('http://localhost/projects/cardetails/public/login');
     }
 }

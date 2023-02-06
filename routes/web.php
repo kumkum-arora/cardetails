@@ -20,36 +20,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Routes for registration
+
 Route::get('registration', [DisplayController::class, 'registration']);
-Route::post('register-submit', [UsersController::class, 'register_submit']);
+Route::post('register-submit', [UsersController::class, 'register_Submit']);
+Route::get('verify/{id}', [UsersController::class, 'verifyEmail']);
 
-// display login page
 Route::get('login',[DisplayController::class, 'login_Page']);
-Route::post('login-submit',[UsersController::class, 'login_account']);
-Route::get('logout',[UsersController::class, 'account_logout'] );
+Route::post('login-submit',[UsersController::class, 'login_Account']);
+Route::get('logout',[UsersController::class, 'account_Logout'] );
 
-// for index page
-Route::get('alldisplay', 'App\Http\Controllers\IController@alldisplay');
+Route::get('index', [DisplayController::class, 'index']);
 
-// for display add car form and submit
-Route::get('addcar', 'App\Http\Controllers\IController@addcar');
-Route::post('add-submit', 'App\Http\Controllers\IController@add_submit');
+Route::get('addcar', [DisplayController::class, 'addCar']);
+Route::post('add-submit',[PostController::class, 'addCar_submit']);
 
-// showing clicked image on next page
-Route::get('fulldisplay/{id}', 'App\Http\Controllers\IController@carfulldetails');
+Route::get('fulldisplay/{id}', [DisplayController::class, 'car_All_details']);
 
-// post review
-Route::post('review-submit', 'App\Http\Controllers\IController@review_submit');
+Route::post('review-submit', [PostController::class, 'review_Submit']);
 
-// search car
-Route::post('search-submit', 'App\Http\Controllers\IController@search_submit');
+Route::post('search-submit', [DisplayController::class, 'search_Cars']);
 
-// verify email
-Route::get('verify/{id}',  'App\Http\Controllers\IController@verifyemail');
-
-// for lounched cars in this month
-Route::get('justlounched',  'App\Http\Controllers\IController@justlounched_cars');
-
-//for cars to be launched in next months
-Route::get('upcomings',  'App\Http\Controllers\IController@upcoming_cars');
+Route::get('justlounched', [DisplayController::class, 'justLounched_cars']);
+Route::get('upcomings', [DisplayController::class, 'upcoming_Cars']);

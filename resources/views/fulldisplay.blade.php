@@ -120,11 +120,13 @@
                                 <textarea type="text"
                                     class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-15 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
                                     name="review" placeholder='Type Your Review' required></textarea>
-                                <input type="hidden" name="userid" value="{{ session('user') }}" </div>
-                                <input type="hidden" name="carid" value="{{ $row->id }}" </div>
+                                    @if (Auth::user())
+                                <input type="hidden" name="userid" value="{{ Auth::user()->id }}">
+                                @endif
+                                <input type="hidden" name="carid" value="{{ $row->id }}">
                                 <div class="w-full md:w-full flex items-start md:w-full px-2">
                                     <div class="-mr-1">
-                                        @if (session()->has('user'))
+                                        @if (Auth::user())
                                             <input type='submit'
                                                 class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide  hover:bg-gray-100"
                                                 value='Post Review'>
@@ -153,11 +155,11 @@
 
                         <div class="">
                             <div class="flex items-center justify-between">
-                                <h2 class="text-lg font-semibold text-gray-900 -mt-1">{{ $row->users->fullname }}</h2>
+                                <h2 class="text-lg font-semibold text-gray-900 -mt-1">{{ $row->users->username }}</h2>
                                 {{--  <small class="text-sm text-gray-700">22h ago</small>  --}}
                             </div>
                             <p class="text-gray-700">{{ $row->created_at }}</p>
-                            <p class="mt-3 text-gray-700 text-sm">{{ $row->review }}</p>
+                            <p class="mt-3 text-gray-700 text-sm bold">{{ $row->review }}</p>
 
                         </div>
                     </div>

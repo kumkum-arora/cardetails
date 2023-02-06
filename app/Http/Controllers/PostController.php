@@ -3,39 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use App\Models\car;
 use App\Models\review;
-use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
 
-use Illuminate\Support\Facades\Auth;
-
-class IController extends Controller
+class PostController extends Controller
 {
-
-    // function for display index page
-    public function alldisplay()
-    {
-        $cars = car::all();
-        return view('alldisplay', compact('cars'));
-    }
-    // email verification
-    public function verifyemail(Request $request, $id)
-    {
-        $verify = User::where('id', $id);
-        $verify->update(['email_verified_at' => date('Y-m-d H:i:s')]);
-        return redirect('http://localhost/projects/cardetails/public/login');
-    }
-
-    // display add car page
-    public function addcar()
-    {
-        return view('addcar');
-    }
-
-    // submit car details in database
-    public function add_submit(Request $request)
+    public function addCar_submit(Request $request)
     {
         $validate = Validator::make($request->all(), [
             'carname' => 'required',
@@ -75,19 +49,10 @@ class IController extends Controller
             }
             $add->save();
         }
-        return redirect("alldisplay");
+        return redirect("index");
     }
 
-    // show all the details of clicked image
-    public function carfulldetails($id)
-    {
-        $data = car::where('id', $id)->get();
-        $reviews = review::where('cars_id', $id)->with('cars')->with('users')->get();
-        return view('fulldisplay', compact('data', 'reviews'));
-    }
-
-    // post Review function
-    public function review_submit(Request $request)
+    public function review_Submit(Request $request)
     {
         $reviewadd = new review;
         if ($request->isMethod('post')) {
@@ -97,29 +62,5 @@ class IController extends Controller
             $reviewadd->save();
         }
         return back();
-    }
-
-    // search car
-    public function search_submit(Request $request)
-    {
-        if ($request->isMethod('post')) {
-            $search = $request->get('search');
-            $cars = car::where('carname', 'LIKE', '%' . $search . '%')->paginate();
-        }
-        return view('alldisplay', compact('cars'));
-    }
-
-    //    function for lounched cars in this month
-    public function justlounched_cars()
-    {
-        $cars = car::whereMonth('releasedate', date('m'))->get();
-        return view('alldisplay', compact('cars'));
-    }
-
-    // Function for cars to be launched in next months
-    public function upcoming_cars()
-    {
-        $cars = car::whereMonth('releasedate', '>', date('m'))->get();
-        return view('alldisplay', compact('cars'));
     }
 }
